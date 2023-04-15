@@ -1,0 +1,63 @@
+import java.util.Random;
+
+
+
+public static String make_task(int n){
+        Random random = new Random();
+        int a, b, c;
+        String s = "";
+        c = random.nextInt(4);
+        while (true){
+            a = random.nextInt(n);
+            b = random.nextInt(n);
+            if (c == 0){
+                s = String.valueOf(a) + " + " + String.valueOf(b);
+                break;
+            }
+            else if (c == 1){
+                if (a >= b){
+                    s = String.valueOf(a) + " - " + String.valueOf(b);
+                }
+                else{
+                    s = String.valueOf(b) + " - " + String.valueOf(a);
+                }
+                break;
+            }
+            else if (c == 2){
+                s = String.valueOf(a) + " * " + String.valueOf(b);
+                break;
+            }
+            else if (c == 3){
+                if (a != 0 && b != 0) {
+                    if (a >= b && a % b == 0){
+                        s = String.valueOf(a) + " / " + String.valueOf(b);
+                        break;
+                    }
+                    else if (a < b && b % a == 0){
+                        s = String.valueOf(b) + " / " + String.valueOf(a);
+                        break;
+                    }
+                }
+    
+            }
+        }
+        return s;
+    }
+    public static boolean check_task(String task, String answer){
+        try{
+            String a = task.substring(0, task.indexOf(" ")), b = task.substring(task.lastIndexOf(" ") + 1), znak = task.substring(task.indexOf(" ") + 1, task.lastIndexOf(" "));
+            int x = Integer.parseInt(a), y = Integer.parseInt(b), person_ans = Integer.parseInt(answer);
+            int true_ans;
+            if (znak.equals("+")) true_ans = x + y;
+            else if (znak.equals("-")) true_ans = x - y;
+            else if (znak.equals("*")) true_ans = x * y;
+            else true_ans = x / y;
+
+            if (true_ans == person_ans) return true;
+            else return false;
+
+        }
+        catch (NumberFormatException nfe){
+            return false;
+        }
+    }
